@@ -1,0 +1,68 @@
+# _extensions/hslu-brand/brand.yml
+
+meta:
+  name: "Hochschule Luzern"
+  link: "https://www.hslu.ch"
+  description: "Corporate Brand der Hochschule Luzern für Quarto"
+
+#logo:
+#  small: logos/hslu-logo.svg
+#  medium: logos/hslu-logo.svg
+#  large: logos/hslu-logo.svg
+
+color:
+  palette:
+    hslu-blue:    "#77c5d8" 
+    hslu-green:   "#adca2a"  
+    hslu-magenta: "#ee6a87"  
+    hslu-yellow:  "#fcc300" 
+    hslu-grey:    "#f0f0f0" 
+    hslu-black:   "#000000"
+
+  background:
+    light: "#FFFFFF"
+    dark:  hslu-black
+
+  foreground:
+    light: hslu-black
+    dark:  "#FFFFFF"
+
+  primary:
+    light: "hslu-blue"
+    dark:  "hslu-blue"
+
+  secondary:
+    light: "hslu-grey"
+    dark:  "hslu-grey"
+
+  success:
+    light: "hslu-green"
+    dark:  "hslu-green"
+
+  warning:
+    light: "hslu-yellow"
+    dark:  "hslu-yellow"
+
+  danger:
+    light: "hslu-magenta"
+    dark:  "hslu-magenta"
+
+  light:
+    light: "#f9f9f9"
+    dark:  "#1a1a1a"
+
+  dark:
+    light: "#1a1a1a"
+    dark:  "#f9f9f9"
+
+typography:
+  base:
+    family: "Verdana"
+    size: "30px"
+
+  headings:
+    family: "Verdana"
+    weight: "bold"
+
+
+

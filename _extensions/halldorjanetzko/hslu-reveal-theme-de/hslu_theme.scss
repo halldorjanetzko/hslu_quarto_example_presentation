@@ -1,0 +1,244 @@
+/*-- scss:functions --*/
+@function colorToRGB ($color) {
+  @return "rgb(" + red($color) + ", " + green($color) + ", " + blue($color)+ ")";
+}
+
+/*-- scss:defaults --*/
+
+/*-- scss:defaults --*/
+
+// Base HSLU palette (as SCSS colors)
+$hslu-blue-color:    #77c5d8;
+$hslu-green-color:   #adca2a;
+$hslu-magenta-color: #ee6a87;
+$hslu-yellow-color:  #fcc300;
+$hslu-grey-color:    #f0f0f0;
+$hslu-black-color:   #000000;
+
+// Same palette as RGB strings (using colorToRGB)
+$hslu-blue:    colorToRGB($hslu-blue-color);
+$hslu-green:   colorToRGB($hslu-green-color);
+$hslu-magenta: colorToRGB($hslu-magenta-color);
+$hslu-yellow:  colorToRGB($hslu-yellow-color);
+$hslu-grey:    colorToRGB($hslu-grey-color);
+$hslu-black:   colorToRGB($hslu-black-color);
+
+// Background
+$background-light: colorToRGB(#FFFFFF);
+$background-dark:  $hslu-black;
+
+// Foreground
+$foreground-light: $hslu-black;
+$foreground-dark:  colorToRGB(#FFFFFF);
+
+// Primary / secondary
+$primary-light:   $hslu-blue;
+$primary-dark:    $hslu-blue;
+
+$secondary-light: $hslu-grey;
+$secondary-dark:  $hslu-grey;
+
+// Status colors
+$success-light:   $hslu-green;
+$success-dark:    $hslu-green;
+
+$warning-light:   $hslu-yellow;
+$warning-dark:    $hslu-yellow;
+
+$danger-light:    $hslu-magenta;
+$danger-dark:     $hslu-magenta;
+
+// “Light” / “dark” utility colors
+$light-light:     colorToRGB(#f9f9f9);
+$light-dark:      colorToRGB(#1a1a1a);
+
+$dark-light:      colorToRGB(#1a1a1a);
+$dark-dark:       colorToRGB(#f9f9f9);
+
+
+
+/*-- scss:rules --*/
+
+:root {
+  --mermaid-label-fg-color: black;
+  --mermaid-edge-color: black;
+}
+
+
+div.header-logo { grid-area: logo;}
+
+.no-logo div.header-logo { grid-area: unset !important; }
+
+div.sc-title { grid-area: sc;}
+div.sb-title { grid-area: sb;}
+div.header-text { grid-area: ht;}
+div.reveal.has-logo div.slide-number {
+  grid-area: sn;
+  top: unset !important;
+  left: unset !important;
+  bottom: unset !important;
+  margin-left: 50px !important;
+  justify-self: center;
+  /*font-family: var(--header-font-family);*/
+  font-size: var(--header-font-size);
+  min-height:"5em"
+}
+
+div.reveal-header.no-logo {
+  grid-template-columns: 0.05fr 2fr 2fr 2fr ;
+  grid-template-areas: "sn sc ht sb";
+  margin-top: 1.5vh;
+  min-height: 4vh;
+}
+
+
+.reveal-header .sc-title p, .reveal-header .sb-title p {
+    filter: brightness(0.3);
+}
+
+/* On screens that are 600px or less*/
+@media screen and (max-width: 600px) {
+
+  div.reveal-header {
+    grid-template-columns: 0.4fr 0.4fr 1fr 0.4fr 0.3fr;
+    grid-template-areas: "logo sc ht sb sn";
+  }
+
+  div.reveal-header.no-logo {
+    grid-template-columns: 0.7fr 1fr 0.7fr 0.05fr;
+    grid-template-areas: "sc ht sb sn";
+  }
+  
+  .reveal-header .sc-title p { margin-left: 1vw; }
+  .reveal-header.no-logo .sc-title p {margin-left: 2vw; }
+  div.reveal.has-logo div.slide-number { font-size: 10px; }
+}
+
+
+.reveal h1.title {
+  margin-top: 2em;   /* increase this number to enlarge spacing */
+
+  background-color: #000000aa;
+  color:white;
+
+  padding-top: 0.2em;    /* Abstand oben */
+  padding-bottom: 0.2em; /* Abstand unten */
+}
+
+.reveal .slide-menu-button,
+.reveal .slide-number {
+  font-size: 1.5em;
+}
+
+header {
+  font-size: 1.5em !important;
+  padding: 0.5em 1em !important;
+  line-height: 1.2 !important;
+}
+
+.reveal h1 + p.subtitle {
+  margin-top: 2em;   /* increase this number to enlarge spacing */
+
+  background-color: #000000aa;
+  color:white;
+
+  max-width: 60%;        /* Breite begrenzen */
+  padding-top: 0.2em;    /* Abstand oben */
+  padding-bottom: 0.2em; /* Abstand unten */
+  margin-left: auto;     /* zentrieren */
+  margin-right: auto;    /* zentrieren */
+  
+  
+  padding: 0.5em 1em;
+}
+
+.reveal h4 {
+  font-style: italic;
+  font-size: 1.15em;
+}
+
+.reveal div.quarto-title-author-name {
+  margin-top: 3em;
+  background-color: #000000aa;
+  color:white;
+
+  width: 600px;
+  max-width: 80%;          /* responsive fallback */
+
+  margin-left: auto;
+  margin-right: auto;
+
+
+  padding: 0.5em 1em;
+}
+
+div.reveal-header {
+  display: grid;
+  grid-template-columns: 0.1fr 0.4fr 0.5fr 0.4fr 2fr 2fr ;
+  grid-template-areas: "sn logo sa sc ht sb";
+  column-gap: 10px;
+  align-items: center;
+  min-width: 40px;
+  min-height: 40px;
+  color:red;
+}
+
+.larger {
+  font-size: 120% !important;
+}
+
+.large {
+  font-size: 110% !important;
+
+}
+
+.small {
+  font-size: 90% !important;
+
+}
+
+.smaller {
+  font-size: 80% !important;
+
+}
+
+.tiny {
+  font-size: 70% !important;
+}
+
+.tinier{
+  font-size: 60% !important;
+}
+
+.center  {
+  text-align: center;
+}
+
+.reveal p,
+.reveal li {
+  line-height: 1.5;
+  margin-bottom: 2em;
+}
+
+.reveal h2 {
+  margin-bottom: 1em;
+}
+
+.reveal blockquote > p {
+  margin-bottom: 0.2em;
+}
+
+.highlight {
+  color: $hslu-magenta-color;
+}
+
+.reveal .compact p{
+    margin-bottom: 0em !important;
+}
+
+.reveal .compact h5,
+.reveal .compact h4,
+.reveal .compact h3 {
+    margin-top: 0.4em !important;
+}
+

@@ -1,0 +1,100 @@
+---
+title: "1. Introduction"
+subtitle: "Geospatial Data Analysis"
+author: "Prof. Dr. Halldór Janetzko"
+header-logo: "_extensions/halldorjanetzko/hslu-reveal-theme-de/logos/hslu-logo.svg"
+title-slide-attributes:
+    data-background-image: "figures/cartography_teaser.png"
+    data-background-size: contain
+    data-background-opacity: "0.8"
+format:
+  revealjs:
+    theme: [default, brand, ./_extensions/halldorjanetzko/hslu-reveal-theme-de/hslu_theme.scss, local.scss ]
+    chalkboard: true
+    incremental: false
+    slide-number: "c"
+    hide-from-titleSlide: "all"
+    embed-resources: false
+    subtitle-as-header: true
+    footer: "{{< meta title >}}"
+    sc-sb-title: true
+    toc: true
+    toc-depth: 2
+    template-partials: 
+      - toc-slide.html
+    include-after-body: 
+      - toc-add.html
+      - clean_title_page.html
+filters: 
+  - reveal-header
+slide-level: 3
+---
+
+## Today's menu {.unnumbered .unlisted}
+
+```{=html}
+<div id='toc'></div>
+```
+
+
+## Motivation
+
+::: {.incremental}
+- Who has ever used a Geographic Information System?
+- Who has a GPS-enabled device (e.g., GPS mouse, smartphone GPS, car navigation system)?
+- How often do you use it?
+  - Daily
+  - Weekly
+  - Monthly
+  - Occasionally
+- Who has ever implemented something geo-related?
+  - What was it?
+:::
+
+---
+
+### Dr. Snow‘s Cholera Map
+
+In the map made by **Dr. John Snow** in 1844, the death cases (indicated by bars) are clustered around the location of one of the water pumps. The cluster is encircled.  
+
+![](figures/cholera-map-dr-john-snow-1844.png){fig-align="center" width="100%"}
+
+::: {.tiny}
+Cited and analysed by Gilbert and Tufte (Source: <http://johnsnow.matrix.msu.edu>)
+:::
+
+---
+
+
+### First Law of Geography
+
+
+::: callout-important
+One of the things to remember from this class:
+:::
+
+
+> “Everything is related to everything else,  
+> but near things are more related than distant things.”  
+> — *Waldo Tobler, 1970*
+
+
+## Cartography
+### Definition
+
+**Cartography**: the art, science, and technology of making maps,  
+together with their study as documents and works of art,  
+including maps, charts, sections, 3D models, and globes  
+representing the Earth or other celestial bodies (after ICA, 1973).
+
+---
+
+### Development
+
+- Origins in antiquity (oldest known records around 3600 BC in Mesopotamia)
+- Ancient Greece: development of scientific cartography
+- Roman Empire: application in military, administration, and trade
+- 15th / 16th century: Earth and sea maps during the age of exploration
+- 20th / 21st century: air and satellite imagery and computer usage (GIS)
+
+---
