@@ -82,3 +82,133 @@ decktape reveal presentation.html presentation.pdf
 ```
 
 ---
+
+### Docker Container for DeckTape
+
+Dockerfile.decktape-fonts
+
+#### 
+
+```Dockerfile
+FROM astefanutti/decktape:latest
+
+USER root
+
+# Microsoft Core Fonts (inkl. Verdana) + Cache bauen
+RUN apk add --no-cache fontconfig cabextract wget msttcorefonts-installer \
+  && update-ms-fonts \
+  && fc-cache -f
+
+USER node
+```
+
+### Docker Compose
+
+```yaml
+decktape:
+    build:
+      context: /home/iajanetz/docker-compose-home
+      dockerfile: Dockerfile.decktape-fonts
+    container_name: decktape
+    user: "1000:1000"
+    volumes:
+      - /home/iajanetz:/home/iajanetz:ro
+      - /home/iajanetz/quarto_decktape_output:/output:rw
+    working_dir: /home/iajanetz
+``` 
+
+### Script to run DeckTape in Docker
+
+``` bash
+#!/usr/bin/env zsh
+set -euo pipefail
+
+# --- Config (adjust if needed) ---
+THEME_REPO="halldorjanetzko/hslu-reveal-theme-de"
+DOCKER_COMPOSE_HOME="/home/iajanetz/docker-compose-home"
+DECKTAPE_SERVICE="decktape"
+HOST_OUTPUT_DIR="/home/iajanetz/quarto_decktape_output"
+# --------------------------------
+
+usage() {
+  cat <<'EOF'
+Usage:
+  quarto-decktape.zsh <path-to-presentation.qmd | path-to-folder>
+
+Examples:
+  quarto-decktape.zsh 01_introduction/presentation.qmd
+  quarto-decktape.zsh 01_introduction
+
+What it does:
+  1) quarto update <theme repo>
+  2) quarto render presentation.qmd
+  3) docker compose run decktape reveal <abs html path> /output/<foldername>.pdf
+EOF
+}
+
+if [[ "${1:-}" == "" || "${1:-}" == "-h" || "${1:-}" == "--help" ]]; then
+  usage
+  exit 0
+fi
+
+input="$1"
+
+# Resolve input to a .qmd file and its directory
+if [[ -d "$input" ]]; then
+  qmd="$input/presentation.qmd"
+else
+  qmd="$input"
+fi
+
+if [[ ! -f "$qmd" ]]; then
+  echo "ERROR: Could not find presentation.qmd at: $qmd" >&2
+  exit 1
+fi
+
+# Absolute paths
+qmd_abs="$(python3 -c 'import os,sys; print(os.path.realpath(sys.argv[1]))' "$qmd")"
+qmd_dir="${qmd_abs:h}"
+folder_name="${qmd_dir:t}"
+
+html_abs="${qmd_dir}/presentation.html"
+
+echo "==> Target QMD:  $qmd_abs"
+echo "==> Folder name: $folder_name"
+
+# 1) Update reveal theme
+echo "==> (1/3) quarto update ${THEME_REPO}"
+cd "$qmd_dir"
+quarto update "$THEME_REPO"
+
+# 2) Render HTML
+echo "==> (2/3) quarto render presentation.qmd"
+quarto render "presentation.qmd"
+
+if [[ ! -f "$html_abs" ]]; then
+  echo "ERROR: Expected HTML not found at: $html_abs" >&2
+  exit 1
+fi
+
+# 3) Run decktape via docker compose
+echo "==> (3/3) docker compose run decktape"
+cd "$DOCKER_COMPOSE_HOME"
+
+# Output path INSIDE the container (host mapping depends on your compose setup)
+out_pdf="/output/${folder_name}.pdf"
+
+echo "==> Rendering PDF to: ${out_pdf}"
+docker compose run --rm "$DECKTAPE_SERVICE" reveal "$html_abs" "$out_pdf"
+
+echo "✅ Done. Decktape output: $out_pdf"
+
+if [[ -d "$HOST_OUTPUT_DIR" ]]; then
+  if command -v nautilus >/dev/null 2>&1; then
+    nautilus --new-window "$HOST_OUTPUT_DIR" >/dev/null 2>&1 &
+  else
+    # Fallback: open with default file manager
+    xdg-open "$HOST_OUTPUT_DIR" >/dev/null 2>&1 &
+  fi
+else
+  echo "⚠️ Output directory not found on host: $HOST_OUTPUT_DIR" >&2
+fi
+```
