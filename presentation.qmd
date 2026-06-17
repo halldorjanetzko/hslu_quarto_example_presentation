@@ -10,11 +10,11 @@ title-slide-attributes:
 format:
   revealjs:
     theme: [default, brand, ./_extensions/halldorjanetzko/hslu-reveal-theme-de/hslu_theme.scss, local.scss ]
-    chalkboard: true
+    chalkboard: false
     incremental: false
     slide-number: "c"
     hide-from-titleSlide: "all"
-    embed-resources: false
+    embed-resources: true
     subtitle-as-header: true
     footer: "{{< meta title >}}"
     sc-sb-title: true
@@ -37,64 +37,48 @@ slide-level: 3
 ```
 
 
-## Motivation
+## Why Quarto?
 
 ::: {.incremental}
-- Who has ever used a Geographic Information System?
-- Who has a GPS-enabled device (e.g., GPS mouse, smartphone GPS, car navigation system)?
-- How often do you use it?
-  - Daily
-  - Weekly
-  - Monthly
-  - Occasionally
-- Who has ever implemented something geo-related?
-  - What was it?
+- One source can target slides, HTML, PDF, Word, and more
+- Markdown stays readable and version-control friendly
+- Code, figures, tables, and narrative live in the same document
+- Reproducible rendering reduces copy-paste workflows
+- Cross-references, citations, and extensions are built in
+- Other than in beamer, you can embed videos as HTML5 videos
 :::
 
 ---
 
-### Dr. Snow‘s Cholera Map
+## Quarto In Practice
 
-In the map made by **Dr. John Snow** in 1844, the death cases (indicated by bars) are clustered around the location of one of the water pumps. The cluster is encircled.  
-
-![](figures/cholera-map-dr-john-snow-1844.png){fig-align="center" width="100%"}
-
-::: {.tiny}
-Cited and analysed by Gilbert and Tufte (Source: <http://johnsnow.matrix.msu.edu>)
+::: {.incremental}
+- Good fit for teaching material, reports, and technical presentations
+- Works well with R, Python, Julia, and Observable content
+- Reveal.js output supports interactive slides and custom themes
+- Project structure stays simple: content, assets, and configuration
+- Publishing and export can be automated in local scripts or CI
 :::
 
 ---
 
+### Exporting Slides To PDF
 
-### First Law of Geography
+Quarto can render reveal.js slides directly, but browser-based slide decks are also commonly exported with **DeckTape**.
 
-
-::: callout-important
-One of the things to remember from this class:
+::: {.incremental}
+- DeckTape captures HTML slide decks and prints them to PDF
+- There is also a docker container available for DeckTape
+- Useful when you want a shareable PDF version of a reveal.js presentation
+- The project is available on GitHub: <https://github.com/astefanutti/decktape>
+- Typical workflow: render the slides with Quarto, then run DeckTape on the generated HTML
 :::
-
-
-> “Everything is related to everything else,  
-> but near things are more related than distant things.”  
-> — *Waldo Tobler, 1970*
-
-
-## Cartography
-### Definition
-
-**Cartography**: the art, science, and technology of making maps,  
-together with their study as documents and works of art,  
-including maps, charts, sections, 3D models, and globes  
-representing the Earth or other celestial bodies (after ICA, 1973).
 
 ---
 
-### Development
-
-- Origins in antiquity (oldest known records around 3600 BC in Mesopotamia)
-- Ancient Greece: development of scientific cartography
-- Roman Empire: application in military, administration, and trade
-- 15th / 16th century: Earth and sea maps during the age of exploration
-- 20th / 21st century: air and satellite imagery and computer usage (GIS)
+```bash
+quarto render presentation.qmd
+decktape reveal presentation.html presentation.pdf
+```
 
 ---
